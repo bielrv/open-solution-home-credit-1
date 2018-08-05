@@ -1,6 +1,11 @@
 import click
+# Click is a Python package for creating beautiful command line interfaces
 
 from src.pipeline_manager import PipelineManager
+# Home made library
+
+# Use the following command to excecute the prediction
+# python main.py -- train_evaluate_predict_cv --pipeline_name lightGBM
 
 pipeline_manager = PipelineManager()
 
@@ -74,6 +79,9 @@ def train_evaluate_cv(pipeline_name, model_level, dev_mode):
               required=True)
 @click.option('-s', '--submit_predictions', help='submit predictions if true', is_flag=True, required=False)
 @click.option('-d', '--dev_mode', help='if true only a small sample of data will be used', is_flag=True, required=False)
+
+# Train Evaluate Predict Cross-Validate
+train_evaluate_predict_cv('lightGBM','first',True,True)
 def train_evaluate_predict_cv(pipeline_name, model_level, dev_mode, submit_predictions):
     pipeline_manager.train_evaluate_predict_cv(pipeline_name, model_level, dev_mode, submit_predictions)
 
