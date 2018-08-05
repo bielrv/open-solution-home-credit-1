@@ -6,7 +6,8 @@ from deepsense import neptune
 from .utils import read_params, parameter_eval
 
 ctx = neptune.Context()
-params = read_params(ctx, fallback_file='../configs/neptune.yaml')
+print(os.getcwd())
+params = read_params(ctx, fallback_file='configs/neptune.yaml')
 
 RANDOM_SEED = 90210
 DEV_SAMPLE_SIZE = 1000
@@ -139,10 +140,10 @@ HIGHLY_CORRELATED_NUMERICAL_COLUMNS = ['AMT_GOODS_PRICE',
                                        'YEARS_BUILD_MEDI',
                                        'YEARS_BUILD_MODE']
 
-cols_to_agg = ['AMT_CREDIT', 
+cols_to_agg = ['AMT_CREDIT',
                'AMT_ANNUITY',
                'AMT_INCOME_TOTAL',
-               'AMT_GOODS_PRICE', 
+               'AMT_GOODS_PRICE',
                'EXT_SOURCE_1',
                'EXT_SOURCE_2',
                'EXT_SOURCE_3',

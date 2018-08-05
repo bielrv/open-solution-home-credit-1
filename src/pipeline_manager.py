@@ -1,9 +1,21 @@
 import os
+# os contains system functions
+# provides a portable way of using operating system dependent functionality
+
 import shutil
+# shutil module offers a number of high-level operations on files and collections of files
+# In particular, functions are provided which support file copying and removal
+# For operations on individual files, see also the os module
 
 from attrdict import AttrDict
+# provides mapping objects that allow their elements to be accessed both as keys and as attributes
+
 import numpy as np
+# fundamental package for scientific computing
+
 import pandas as pd
+# high-performance, easy-to-use data structures and data analysis tools
+
 from scipy.stats import gmean
 from deepsense import neptune
 from sklearn.metrics import roc_auc_score
@@ -17,7 +29,8 @@ from .utils import init_logger, read_params, set_seed, create_submission, verify
 set_seed(cfg.RANDOM_SEED)
 logger = init_logger()
 ctx = neptune.Context()
-params = read_params(ctx, fallback_file='../configs/neptune.yaml')
+# print(os.getcwd())
+params = read_params(ctx, fallback_file='configs/neptune.yaml')
 
 
 class PipelineManager:
@@ -401,7 +414,7 @@ def _read_data(dev_mode, read_train=True, read_test=False):
 
     if read_test:
         raw_data['application_test'] = pd.read_csv(params.test_filepath, nrows=nrows)
-    
+
     raw_data['bureau'] = pd.read_csv(params.bureau_filepath, nrows=nrows)
     raw_data['credit_card_balance'] = pd.read_csv(params.credit_card_balance_filepath, nrows=nrows)
     raw_data['pos_cash_balance'] = pd.read_csv(params.POS_CASH_balance_filepath, nrows=nrows)
