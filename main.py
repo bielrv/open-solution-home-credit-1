@@ -1,20 +1,25 @@
+# Click is a Python package that creates beautiful command line interfaces
 import click
-# Click is a Python package for creating beautiful command line interfaces
 
+# Import PipelineManager class in pipeline_manager in src folder
 from src.pipeline_manager import PipelineManager
-# Home made library
 
 # Use the following command to excecute the prediction
 # python main.py -- train_evaluate_predict_cv --pipeline_name lightGBM
 
+# Create a pipelineManager object named pipeline_manager
 pipeline_manager = PipelineManager()
 
-
+# A group allows a command to have subcommands attached.
+# This is the most common way to implement nesting in Click.
 @click.group()
+# Define function main
 def main():
+    # The pass statement is used when a statement is required syntactically but you do not want any command or code to execute.
+    # The pass statement is a null operation; nothing happens when it executes.
     pass
 
-
+#
 @main.command()
 @click.option('-p', '--pipeline_name', help='pipeline to be trained', required=True)
 @click.option('-d', '--dev_mode', help='if true only a small sample of data will be used', is_flag=True, required=False)
