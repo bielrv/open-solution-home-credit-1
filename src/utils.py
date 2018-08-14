@@ -1,15 +1,37 @@
+# Logging tracks events that happen when some software runs
 import logging
+
+# os provides a portable way of using operating system dependent functionality.
 import os
+
+# random implements pseudo-random number generators for various distributions
 import random
+
+# sys provides access to some variables used or maintained by the interpreter and to functions that interact strongly with the interpreter
 import sys
+
+# Multiprocessing supports spawning processes using an API similar to the threading module.
 import multiprocessing as mp
+
+# functools provides tools for adapting or extending functions and other callable objects, without completely rewriting them.
 from functools import reduce
 
+# glob finds all the pathnames matching a specified pattern according to the rules used by the Unix shell
 import glob
+
+# NumPy is the fundamental package for scientific computing with Python
 import numpy as np
+
+# pandas offers data structures and operations for manipulating numerical tables and time series
 import pandas as pd
+
+# tqdm makes your loops show a smart progress meter - just wrap any iterable with tqdm(iterable)
 from tqdm import tqdm
+
+# YAML is a human friendly data serialization standard for all programming languages.
 import yaml
+
+# AttrDict provides mapping objects that allow their elements to be accessed both as keys and as attributes
 from attrdict import AttrDict
 
 

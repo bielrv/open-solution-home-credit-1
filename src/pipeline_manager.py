@@ -1,27 +1,29 @@
+# os contains system functions and provides a portable way of using operating system dependent functionality
 import os
-# os contains system functions
-# provides a portable way of using operating system dependent functionality
 
-import shutil
 # shutil module offers a number of high-level operations on files and collections of files
 # In particular, functions are provided which support file copying and removal
 # For operations on individual files, see also the os module
+import shutil
 
-from attrdict import AttrDict
 # provides mapping objects that allow their elements to be accessed both as keys and as attributes
+from attrdict import AttrDict
 
-import numpy as np
 # fundamental package for scientific computing
+import numpy as np
 
-import pandas as pd
 # high-performance, easy-to-use data structures and data analysis tools
+import pandas as pd
 
 from scipy.stats import gmean
 from deepsense import neptune
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import train_test_split, KFold, StratifiedKFold
 
+# cfg stands for config
+# pipeline_config contains a set of lists and clases
 from . import pipeline_config as cfg
+
 from .pipelines import PIPELINES
 from .utils import init_logger, read_params, set_seed, create_submission, verify_submission, calculate_rank, \
     read_oof_predictions
@@ -180,7 +182,10 @@ def train_evaluate_cv(pipeline_name, model_level, dev_mode):
     else:
         raise NotImplementedError
 
-
+# pipeline_name: 'lightGBM'
+# model_level: default='first' - Not required
+# dev_mode: default='False' - Not required
+# submit_predictions: default='False' - Not required
 def train_evaluate_predict_cv(pipeline_name, model_level, dev_mode, submit_predictions):
     if model_level == 'first':
         train_evaluate_predict_cv_first_level(pipeline_name, dev_mode, submit_predictions)
@@ -272,11 +277,20 @@ def train_evaluate_cv_second_level(pipeline_name):
 
 def train_evaluate_predict_cv_first_level(pipeline_name, dev_mode, submit_predictions):
     if bool(params.clean_experiment_directory_before_training) and os.path.isdir(params.experiment_directory):
+        # Report events that occur during normal operation of a program (e.g. for status monitoring or fault investigation)
         logger.info('Cleaning experiment_directory...')
+        # The shutil module offers a number of high-level operations on files and collections of files.
+        # In particular, functions are provided which support file copying and removal.
+        # rmtree deletes an entire directory tree
         shutil.rmtree(params.experiment_directory)
 
+    # Names, in a class, with a leading underscore are simply to indicate to other programmers that the attribute or method is intended to be private.
+    # However, nothing special is done with the name itself.
+    # _read_data is a function defined in pipeline_manager.py
+    # _read_data returns a dictionary containing raw data for the kaggle competition.
     tables = _read_data(dev_mode, read_train=True, read_test=True)
 
+    #
     target_values = tables.application_train[cfg.TARGET_COLUMNS].values.reshape(-1)
     fold_generator = _get_fold_generator(target_values)
 
@@ -400,7 +414,10 @@ def train_evaluate_predict_cv_second_level(pipeline_name, submit_predictions):
 
 
 def _read_data(dev_mode, read_train=True, read_test=False):
+    # Logging is a means of tracking events that happen when some software runs.
+    # Info logs a message with level INFO on this logger.
     logger.info('Reading data...')
+    # dev_mode is an optional boolean variables. Default false
     if dev_mode:
         nrows = cfg.DEV_SAMPLE_SIZE
         logger.info('running in "dev-mode". Sample size is: {}'.format(cfg.DEV_SAMPLE_SIZE))
@@ -422,6 +439,7 @@ def _read_data(dev_mode, read_train=True, read_test=False):
     raw_data['bureau_balance'] = pd.read_csv(params.bureau_balance_filepath, nrows=nrows)
     raw_data['installments_payments'] = pd.read_csv(params.installments_payments_filepath, nrows=nrows)
 
+    # AttrDict is an MIT-licensed library that provides mapping objects that allow their elements to be accessed both as keys and as attributes.
     return AttrDict(raw_data)
 
 

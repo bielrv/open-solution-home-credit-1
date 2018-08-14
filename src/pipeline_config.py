@@ -1,6 +1,11 @@
+# os provides a portable way of using operating system dependent functionality.
 import os
 
+# AttrDict provides mapping objects that allow their elements to be accessed both as keys and as attributes
 from attrdict import AttrDict
+
+# DeepSense is a deep learning framework that runs on mobile devices
+# can be used for regression and classification tasks
 from deepsense import neptune
 
 from .utils import read_params, parameter_eval
